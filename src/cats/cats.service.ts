@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, Optional } from '@nestjs/common';
 import { Cat } from './Interfaces/cat.interface';
 
 @Injectable()
@@ -12,4 +12,7 @@ export class CatsService {
   findAll(): Cat[] {
     return this.cats;
   }
+}
+export class HttpService<T> {
+  constructor(@Optional() @Inject('HTTP_OPTIONS') private httpClient: T) {}
 }
