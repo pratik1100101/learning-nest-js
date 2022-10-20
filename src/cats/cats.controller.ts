@@ -16,14 +16,15 @@ import { query, Request, Response } from 'express';
 import { CatsService } from './cats.service';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
+import { Cat } from './Interfaces/cat.interface';
 
 @Controller('cats')
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
   @Post()
-  create(@Body() creatCatDto: CreateCatDto): string {
-    return 'This adds a new cat';
+  create(@Body() creatCatDto: CreateCatDto) {
+    this.catsService.create(creatCatDto);
   }
 
   // //Provides full control to the response object and should be used carefully//
@@ -38,8 +39,8 @@ export class CatsController {
   // }
 
   @Get()
-  async findAll() {
-    return `This action returns all cats`;
+  async findAll(): Promise<Cat[]> {
+    return this.catsService.findAll();
   }
 
   @Get(':id')
