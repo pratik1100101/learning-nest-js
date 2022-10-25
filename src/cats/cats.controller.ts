@@ -11,13 +11,16 @@ import {
   Req,
   Res,
   HttpStatus,
+  UseInterceptors,
 } from '@nestjs/common';
 import { query, Request, Response } from 'express';
 import { CatsService } from './cats.service';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
 import { Cat } from './Interfaces/cat.interface';
+import { LoggingInterceptor } from './logging.interceptor';
 
+@UseInterceptors(LoggingInterceptor)
 @Controller('cats')
 export class CatsController {
   constructor(private catsService: CatsService) {}
